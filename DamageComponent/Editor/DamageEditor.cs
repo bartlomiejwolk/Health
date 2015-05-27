@@ -6,22 +6,21 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace HealthEx.HealthComponent {
+namespace HealthEx.DamageComponent {
 
-    [CustomEditor(typeof (Health))]
+    [CustomEditor(typeof (Damage))]
     [CanEditMultipleObjects]
-    public sealed class HealthEditor : Editor {
+    public sealed class DamageEditor : Editor {
         #region FIELDS
 
-        private Health Script { get; set; }
+        private Damage Script { get; set; }
 
         #endregion FIELDS
 
         #region SERIALIZED PROPERTIES
 
+        private SerializedProperty damageValue;
         private SerializedProperty description;
-        private SerializedProperty healthUpdatedCallback;
-        private SerializedProperty healthValue;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -35,62 +34,51 @@ namespace HealthEx.HealthComponent {
 
             EditorGUILayout.Space();
 
-            DrawHealthValueField();
-            DrawHealthUpdatedCallback();
+            DrawDamageValueField();
 
             serializedObject.ApplyModifiedProperties();
         }
 
         private void OnEnable() {
-            Script = (Health) target;
+            Script = (Damage) target;
 
             description = serializedObject.FindProperty("description");
-            healthValue = serializedObject.FindProperty("healthValue");
-            healthUpdatedCallback =
-                serializedObject.FindProperty("healthUpdatedCallback");
+            damageValue = serializedObject.FindProperty("damageValue");
         }
 
         #endregion UNITY MESSAGES
 
         #region INSPECTOR CONTROLS
 
+        private void DrawDamageValueField() {
+            EditorGUILayout.PropertyField(
+                damageValue,
+                new GUIContent(
+                    "Damage",
+                    "Damage value."));
+        }
+
         private void DrawDescriptionTextArea() {
             description.stringValue = EditorGUILayout.TextArea(
                 description.stringValue);
-        }
-
-        private void DrawHealthUpdatedCallback() {
-            EditorGUILayout.PropertyField(
-                healthUpdatedCallback,
-                new GUIContent(
-                    "Health Changed Callback",
-                    "Callback executed on health value change."));
-        }
-
-        private void DrawHealthValueField() {
-            EditorGUILayout.PropertyField(
-                healthValue,
-                new GUIContent(
-                    "Health",
-                    "Health value."));
         }
 
         private void DrawVersionLabel() {
             EditorGUILayout.LabelField(
                 string.Format(
                     "{0} ({1})",
-                    Health.Version,
-                    Health.Extension));
+                    Damage.Version,
+                    Damage.Extension));
         }
 
         #endregion INSPECTOR CONTROLS
 
         #region METHODS
 
-        [MenuItem("Component/Health/Health")]
+        [MenuItem("Component/Health/Damage")]
         private static void AddEntryToComponentMenu() {
             if (Selection.activeGameObject != null) {
-                Selection.activeGameObject.AddComponent(typeof (Health));
+                Selection.activeGameObject.AddComponent(typeof (Damage));
             }
         }
 
