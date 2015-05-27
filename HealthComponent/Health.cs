@@ -36,6 +36,9 @@ namespace HealthEx.HealthComponent {
         [SerializeField]
         private string description = "Description";
 
+        [SerializeField]
+        private int healthValue = 100;
+
         #endregion
 
         #region PROPERTIES
@@ -46,6 +49,14 @@ namespace HealthEx.HealthComponent {
         public string Description {
             get { return description; }
             set { description = value; }
+        }
+
+        /// <summary>
+        /// Health value.
+        /// </summary>
+        public int HealthValue {
+            get { return healthValue; }
+            set { healthValue = value; }
         }
 
         #endregion
