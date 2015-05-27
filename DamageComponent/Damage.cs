@@ -41,7 +41,7 @@ namespace HealthEx.DamageComponent {
         /// Damage to be applied to the <c>Health</c> component.
         /// </summary>
         [SerializeField]
-        private int damageValue;
+        private int damageValue = 5;
 
         #endregion
 
