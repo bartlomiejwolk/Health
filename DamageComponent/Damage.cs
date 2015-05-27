@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using HealthEx.HealthComponent;
 
 namespace HealthEx.DamageComponent {
 
@@ -36,6 +37,12 @@ namespace HealthEx.DamageComponent {
         [SerializeField]
         private string description = "Description";
 
+        /// <summary>
+        /// Damage to be applied to the <c>Health</c> component.
+        /// </summary>
+        [SerializeField]
+        private int damageValue;
+
         #endregion
 
         #region PROPERTIES
@@ -46,6 +53,14 @@ namespace HealthEx.DamageComponent {
         public string Description {
             get { return description; }
             set { description = value; }
+        }
+
+        /// <summary>
+        /// Damage to be applied to the <c>Health</c> component.
+        /// </summary>
+        public int DamageValue {
+            get { return damageValue; }
+            set { damageValue = value; }
         }
 
         #endregion
@@ -68,6 +83,20 @@ namespace HealthEx.DamageComponent {
 
         private void OnValidate() { }
 
+        // todo filter by tag and layer
+        private void OnCollisionEnter(Collision collision) {
+            var healthComponent = collision.gameObject.GetComponent<Health>();
+
+            if (healthComponent == null) return;
+
+            // Apply damage.
+            healthComponent.HealthValue -= DamageValue;
+        }
+
+        private void OnCollisionStay(Collision collision) { }
+
+        private void OnCollisionExit(Collision collision) { }
+        
         #endregion
 
         #region EVENT INVOCATORS
