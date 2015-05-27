@@ -1,14 +1,14 @@
 ﻿// Copyright (c) 2015 Bartlomiej Wolk (bartlomiejwolk@gmail.com)
-//  
-// This file is part of the Health extension for Unity.
-// Licensed under the MIT license. See LICENSE file in the project root folder.
+// 
+// This file is part of the Health extension for Unity. Licensed under the MIT
+// license. See LICENSE file in the project root folder.
 
 using UnityEditor;
 using UnityEngine;
 
 namespace HealthEx.DamageComponent {
 
-    [CustomEditor(typeof(Damage))]
+    [CustomEditor(typeof (Damage))]
     [CanEditMultipleObjects]
     public sealed class DamageEditor : Editor {
         #region FIELDS
@@ -19,8 +19,8 @@ namespace HealthEx.DamageComponent {
 
         #region SERIALIZED PROPERTIES
 
-        private SerializedProperty description;
         private SerializedProperty damageValue;
+        private SerializedProperty description;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -38,8 +38,9 @@ namespace HealthEx.DamageComponent {
 
             serializedObject.ApplyModifiedProperties();
         }
+
         private void OnEnable() {
-            Script = (Damage)target;
+            Script = (Damage) target;
 
             description = serializedObject.FindProperty("description");
             damageValue = serializedObject.FindProperty("damageValue");
@@ -48,6 +49,7 @@ namespace HealthEx.DamageComponent {
         #endregion UNITY MESSAGES
 
         #region INSPECTOR CONTROLS
+
         private void DrawDamageValueField() {
             EditorGUILayout.PropertyField(
                 damageValue,
@@ -56,6 +58,10 @@ namespace HealthEx.DamageComponent {
                     "Damage value."));
         }
 
+        private void DrawDescriptionTextArea() {
+            description.stringValue = EditorGUILayout.TextArea(
+                description.stringValue);
+        }
 
         private void DrawVersionLabel() {
             EditorGUILayout.LabelField(
@@ -65,19 +71,14 @@ namespace HealthEx.DamageComponent {
                     Damage.Extension));
         }
 
-        private void DrawDescriptionTextArea() {
-            description.stringValue = EditorGUILayout.TextArea(
-                description.stringValue);
-        }
-
-        #endregion INSPECTOR
+        #endregion INSPECTOR CONTROLS
 
         #region METHODS
 
         [MenuItem("Component/Health/Damage")]
         private static void AddEntryToComponentMenu() {
             if (Selection.activeGameObject != null) {
-                Selection.activeGameObject.AddComponent(typeof(Damage));
+                Selection.activeGameObject.AddComponent(typeof (Damage));
             }
         }
 

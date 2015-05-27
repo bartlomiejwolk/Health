@@ -1,7 +1,7 @@
 ﻿// Copyright (c) 2015 Bartlomiej Wolk (bartlomiejwolk@gmail.com)
-//  
-// This file is part of the Health extension for Unity.
-// Licensed under the MIT license. See LICENSE file in the project root folder.
+// 
+// This file is part of the Health extension for Unity. Licensed under the MIT
+// license. See LICENSE file in the project root folder.
 
 using HealthEx.HealthComponent;
 using UnityEngine;
@@ -9,86 +9,74 @@ using UnityEngine;
 namespace HealthEx.DamageComponent {
 
     public sealed class Damage : MonoBehaviour {
-
         #region CONSTANTS
 
-        public const string Version = "v0.1.0";
         public const string Extension = "Health";
+        public const string Version = "v0.1.0";
 
-        #endregion
-
-        #region DELEGATES
-        #endregion
-
-        #region EVENTS
-        #endregion
+        #endregion CONSTANTS
 
         #region FIELDS
 
 #pragma warning disable 0414
+
         /// <summary>
-        /// Allows identify component in the scene file when reading it with
-        /// text editor.
+        ///     Allows identify component in the scene file when reading it with
+        ///     text editor.
         /// </summary>
         [SerializeField]
         private string componentName = "Damage";
+
 #pragma warning restore0414
 
-        #endregion
+        #endregion FIELDS
 
         #region INSPECTOR FIELDS
 
-        [SerializeField]
-        private string description = "Description";
-
         /// <summary>
-        /// Damage to be applied to the <c>Health</c> component.
+        ///     Damage to be applied to the <c>Health</c> component.
         /// </summary>
         [SerializeField]
         private int damageValue = 5;
 
-        #endregion
+        [SerializeField]
+        private string description = "Description";
+
+        #endregion INSPECTOR FIELDS
 
         #region PROPERTIES
 
         /// <summary>
-        /// Optional text to describe purpose of this instance of the component.
-        /// </summary>
-        public string Description {
-            get { return description; }
-            set { description = value; }
-        }
-
-        /// <summary>
-        /// Damage to be applied to the <c>Health</c> component.
+        ///     Damage to be applied to the <c>Health</c> component.
         /// </summary>
         public int DamageValue {
             get { return damageValue; }
             set { damageValue = value; }
         }
 
-        #endregion
+        /// <summary>
+        ///     Optional text to describe purpose of this instance of the
+        ///     component.
+        /// </summary>
+        public string Description {
+            get { return description; }
+            set { description = value; }
+        }
+
+        #endregion PROPERTIES
 
         #region UNITY MESSAGES
 
-        private void Awake() { }
+        private void Awake() {
+        }
 
-        private void FixedUpdate() { }
+        private void FixedUpdate() {
+        }
 
-        private void LateUpdate() { }
+        private void LateUpdate() {
+        }
 
-        private void OnEnable() { }
-
-        private void Reset() { }
-
-        private void Start() { }
-
-        private void Update() { }
-
-        private void OnValidate() { }
-
-        // todo not tested
-        // todo filter by tag and layer
+        // todo not tested todo filter by tag and layer
         private void OnCollisionEnter(Collision collision) {
             var healthComponent =
                 collision.gameObject.GetComponentInChildren<Health>();
@@ -99,17 +87,28 @@ namespace HealthEx.DamageComponent {
             healthComponent.HealthValue -= DamageValue;
         }
 
-        private void OnCollisionStay(Collision collision) { }
+        private void OnCollisionExit(Collision collision) {
+        }
 
-        private void OnCollisionExit(Collision collision) { }
-        
-        #endregion
+        private void OnCollisionStay(Collision collision) {
+        }
 
-        #region EVENT INVOCATORS
-        #endregion
+        private void OnEnable() {
+        }
 
-        #region EVENT HANDLERS
-        #endregion
+        private void OnValidate() {
+        }
+
+        private void Reset() {
+        }
+
+        private void Start() {
+        }
+
+        private void Update() {
+        }
+
+        #endregion UNITY MESSAGES
 
         #region METHODS
 
@@ -125,8 +124,7 @@ namespace HealthEx.DamageComponent {
                 healthComponent.HealthValue - DamageValue;
         }
 
-        #endregion
-
+        #endregion METHODS
     }
 
 }

@@ -1,14 +1,14 @@
 ﻿// Copyright (c) 2015 Bartlomiej Wolk (bartlomiejwolk@gmail.com)
-//  
-// This file is part of the Health extension for Unity.
-// Licensed under the MIT license. See LICENSE file in the project root folder.
+// 
+// This file is part of the Health extension for Unity. Licensed under the MIT
+// license. See LICENSE file in the project root folder.
 
 using UnityEditor;
 using UnityEngine;
 
 namespace HealthEx.HealthComponent {
 
-    [CustomEditor(typeof(Health))]
+    [CustomEditor(typeof (Health))]
     [CanEditMultipleObjects]
     public sealed class HealthEditor : Editor {
         #region FIELDS
@@ -20,8 +20,8 @@ namespace HealthEx.HealthComponent {
         #region SERIALIZED PROPERTIES
 
         private SerializedProperty description;
-        private SerializedProperty healthValue;
         private SerializedProperty healthUpdatedCallback;
+        private SerializedProperty healthValue;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -40,8 +40,9 @@ namespace HealthEx.HealthComponent {
 
             serializedObject.ApplyModifiedProperties();
         }
+
         private void OnEnable() {
-            Script = (Health)target;
+            Script = (Health) target;
 
             description = serializedObject.FindProperty("description");
             healthValue = serializedObject.FindProperty("healthValue");
@@ -52,6 +53,12 @@ namespace HealthEx.HealthComponent {
         #endregion UNITY MESSAGES
 
         #region INSPECTOR CONTROLS
+
+        private void DrawDescriptionTextArea() {
+            description.stringValue = EditorGUILayout.TextArea(
+                description.stringValue);
+        }
+
         private void DrawHealthUpdatedCallback() {
             EditorGUILayout.PropertyField(
                 healthUpdatedCallback,
@@ -68,7 +75,6 @@ namespace HealthEx.HealthComponent {
                     "Health value."));
         }
 
-
         private void DrawVersionLabel() {
             EditorGUILayout.LabelField(
                 string.Format(
@@ -77,19 +83,14 @@ namespace HealthEx.HealthComponent {
                     Health.Extension));
         }
 
-        private void DrawDescriptionTextArea() {
-            description.stringValue = EditorGUILayout.TextArea(
-                description.stringValue);
-        }
-
-        #endregion INSPECTOR
+        #endregion INSPECTOR CONTROLS
 
         #region METHODS
 
         [MenuItem("Component/Health/Health")]
         private static void AddEntryToComponentMenu() {
             if (Selection.activeGameObject != null) {
-                Selection.activeGameObject.AddComponent(typeof(Health));
+                Selection.activeGameObject.AddComponent(typeof (Health));
             }
         }
 
