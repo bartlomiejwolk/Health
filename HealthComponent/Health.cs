@@ -76,6 +76,7 @@ namespace HealthEx.HealthComponent {
 
         /// <summary>
         /// Callback to execute on health value change.
+        /// Current health value is passed as an argument.
         /// </summary>
         public HealthUpdatedCallback HealthUpdatedCallback {
             get { return healthUpdatedCallback; }
