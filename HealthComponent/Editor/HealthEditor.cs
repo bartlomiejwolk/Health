@@ -16,6 +16,7 @@ namespace HealthEx.HealthComponent {
 
         private SerializedProperty description;
         private SerializedProperty healthValue;
+        private SerializedProperty healthUpdatedCallback;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -30,6 +31,7 @@ namespace HealthEx.HealthComponent {
             EditorGUILayout.Space();
 
             DrawHealthValueField();
+            DrawHealthUpdatedCallback();
 
             serializedObject.ApplyModifiedProperties();
         }
@@ -38,11 +40,21 @@ namespace HealthEx.HealthComponent {
 
             description = serializedObject.FindProperty("description");
             healthValue = serializedObject.FindProperty("healthValue");
+            healthUpdatedCallback =
+                serializedObject.FindProperty("healthUpdatedCallback");
         }
 
         #endregion UNITY MESSAGES
 
         #region INSPECTOR CONTROLS
+        private void DrawHealthUpdatedCallback() {
+            EditorGUILayout.PropertyField(
+                healthUpdatedCallback,
+                new GUIContent(
+                    "Health Changed Callback",
+                    "Callback executed on health value change."));
+        }
+
         private void DrawHealthValueField() {
             EditorGUILayout.PropertyField(
                 healthValue,

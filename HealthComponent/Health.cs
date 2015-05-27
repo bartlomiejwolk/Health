@@ -1,7 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 namespace HealthEx.HealthComponent {
+
+    // todo move to a separate file
+    [System.Serializable]
+    public class HealthUpdatedCallback : UnityEvent<int> { }
 
     public sealed class Health : MonoBehaviour {
 
@@ -39,6 +44,9 @@ namespace HealthEx.HealthComponent {
         [SerializeField]
         private int healthValue = 100;
 
+        [SerializeField]
+        private HealthUpdatedCallback healthUpdatedCallback;
+
         #endregion
 
         #region PROPERTIES
@@ -56,7 +64,22 @@ namespace HealthEx.HealthComponent {
         /// </summary>
         public int HealthValue {
             get { return healthValue; }
-            set { healthValue = value; }
+            set {
+                var prevHealthValue = healthValue;
+                healthValue = value;
+
+                if (healthValue != prevHealthValue) {
+                    HealthUpdatedCallback.Invoke(healthValue);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Callback to execute on health value change.
+        /// </summary>
+        public HealthUpdatedCallback HealthUpdatedCallback {
+            get { return healthUpdatedCallback; }
+            set { healthUpdatedCallback = value; }
         }
 
         #endregion
