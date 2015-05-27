@@ -1,4 +1,9 @@
-﻿using HealthEx.HealthComponent;
+﻿// Copyright (c) 2015 Bartlomiej Wolk (bartlomiejwolk@gmail.com)
+//  
+// This file is part of the Health extension for Unity.
+// Licensed under the MIT license. See LICENSE file in the project root folder.
+
+using HealthEx.HealthComponent;
 using UnityEngine;
 
 namespace HealthEx.DamageComponent {
