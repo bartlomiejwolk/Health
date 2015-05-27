@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using HealthEx.HealthComponent;
+﻿using HealthEx.HealthComponent;
+using UnityEngine;
 
 namespace HealthEx.DamageComponent {
 

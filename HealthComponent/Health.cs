@@ -1,11 +1,11 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace HealthEx.HealthComponent {
 
     // todo move to a separate file
-    [System.Serializable]
+    [Serializable]
     public class HealthUpdatedCallback : UnityEvent<int> { }
 
     public sealed class Health : MonoBehaviour {
