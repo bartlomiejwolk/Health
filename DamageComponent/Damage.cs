@@ -83,9 +83,11 @@ namespace HealthEx.DamageComponent {
 
         private void OnValidate() { }
 
+        // todo not tested
         // todo filter by tag and layer
         private void OnCollisionEnter(Collision collision) {
-            var healthComponent = collision.gameObject.GetComponent<Health>();
+            var healthComponent =
+                collision.gameObject.GetComponentInChildren<Health>();
 
             if (healthComponent == null) return;
 
@@ -106,6 +108,19 @@ namespace HealthEx.DamageComponent {
         #endregion
 
         #region METHODS
+
+        // todo filter by tag and layer
+        public void ApplyDamage(RaycastHit hitInfo) {
+            var healthComponent =
+                hitInfo.transform.gameObject.GetComponentInChildren<Health>();
+
+            if (healthComponent == null) return;
+
+            // Apply damage.
+            healthComponent.HealthValue =
+                healthComponent.HealthValue - DamageValue;
+        }
+
         #endregion
 
     }
