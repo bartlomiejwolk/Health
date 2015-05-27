@@ -15,6 +15,7 @@ namespace HealthEx.HealthComponent {
         #region SERIALIZED PROPERTIES
 
         private SerializedProperty description;
+        private SerializedProperty healthValue;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -28,18 +29,28 @@ namespace HealthEx.HealthComponent {
 
             EditorGUILayout.Space();
 
+            DrawHealthValueField();
+
             serializedObject.ApplyModifiedProperties();
         }
-
         private void OnEnable() {
             Script = (Health)target;
 
             description = serializedObject.FindProperty("description");
+            healthValue = serializedObject.FindProperty("healthValue");
         }
 
         #endregion UNITY MESSAGES
 
         #region INSPECTOR CONTROLS
+        private void DrawHealthValueField() {
+            EditorGUILayout.PropertyField(
+                healthValue,
+                new GUIContent(
+                    "Health",
+                    "Health value."));
+        }
+
 
         private void DrawVersionLabel() {
             EditorGUILayout.LabelField(
