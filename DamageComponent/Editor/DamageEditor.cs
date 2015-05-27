@@ -15,6 +15,7 @@ namespace HealthEx.DamageComponent {
         #region SERIALIZED PROPERTIES
 
         private SerializedProperty description;
+        private SerializedProperty damageValue;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -28,18 +29,28 @@ namespace HealthEx.DamageComponent {
 
             EditorGUILayout.Space();
 
+            DrawDamageValueField();
+
             serializedObject.ApplyModifiedProperties();
         }
-
         private void OnEnable() {
             Script = (Damage)target;
 
             description = serializedObject.FindProperty("description");
+            damageValue = serializedObject.FindProperty("damageValue");
         }
 
         #endregion UNITY MESSAGES
 
         #region INSPECTOR CONTROLS
+        private void DrawDamageValueField() {
+            EditorGUILayout.PropertyField(
+                damageValue,
+                new GUIContent(
+                    "Damage",
+                    "Damage value."));
+        }
+
 
         private void DrawVersionLabel() {
             EditorGUILayout.LabelField(
