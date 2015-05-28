@@ -124,6 +124,17 @@ namespace HealthEx.DamageComponent {
                 healthComponent.HealthValue - DamageValue;
         }
 
+        public void ApplyDamage(GameObject other) {
+            //Debug.Log(other);
+            var healthComponent = other.GetComponentInChildren<Health>();
+
+            if (healthComponent == null) return;
+
+            // Apply damage.
+            healthComponent.HealthValue =
+                healthComponent.HealthValue - damageValue;
+        }
+
         #endregion METHODS
     }
 
