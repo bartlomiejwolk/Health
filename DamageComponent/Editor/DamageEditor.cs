@@ -56,7 +56,7 @@ namespace HealthEx.DamageComponent {
                 lookupType,
                 new GUIContent(
                     "Lookup Type",
-                    "Defines where to look for the Health component."));
+                    "Where to look for the Health component."));
         }
 
 
