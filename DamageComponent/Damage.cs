@@ -69,7 +69,7 @@ namespace HealthEx.DamageComponent {
             set { description = value; }
         }
 
-        public LookupType Type {
+        public LookupType LookupType {
             get { return lookupType; }
             set { lookupType = value; }
         }
@@ -125,8 +125,8 @@ namespace HealthEx.DamageComponent {
 
         // todo filter by tag and layer
         public void ApplyDamage(RaycastHit hitInfo) {
-            var healthComponent =
-                hitInfo.transform.gameObject.GetComponentInChildren<Health>();
+            var hitGameObject = hitInfo.transform.gameObject;
+            var healthComponent = GetHealthComponent(hitGameObject);
 
             if (healthComponent == null) return;
 
@@ -135,8 +135,40 @@ namespace HealthEx.DamageComponent {
                 healthComponent.HealthValue - DamageValue;
         }
 
+        /// <summary>
+        /// Look for Health component in the specified game object.
+        /// </summary>
+        /// <param name="hitGameObject"></param>
+        /// <returns></returns>
+        private Health GetHealthComponent(GameObject hitGameObject) {
+            Health healthComponent = null;
+
+            switch (LookupType) {
+                case LookupType.Parent:
+                    healthComponent =
+                        hitGameObject.GetComponentInParent<Health>();
+                    break;
+                case LookupType.Children:
+                    healthComponent =
+                        hitGameObject.GetComponentInChildren<Health>();
+                    break;
+                case LookupType.ParentAndChildren:
+                    healthComponent =
+                        hitGameObject.GetComponentInParent<Health>();
+
+                    if (healthComponent == null) break;
+
+                    healthComponent =
+                        hitGameObject.GetComponentInChildren<Health>();
+
+                    break;
+            }
+
+            return healthComponent;
+        }
+
         public void ApplyDamage(GameObject other) {
-            var healthComponent = other.GetComponentInChildren<Health>();
+            var healthComponent = GetHealthComponent(other);
 
             if (healthComponent == null) return;
 
