@@ -21,6 +21,7 @@ namespace HealthEx.DamageComponent {
 
         private SerializedProperty damageValue;
         private SerializedProperty description;
+        private SerializedProperty lookupType;
 
         #endregion SERIALIZED PROPERTIES
 
@@ -34,21 +35,30 @@ namespace HealthEx.DamageComponent {
 
             EditorGUILayout.Space();
 
+            DrawLookupTypeDropdown();
             DrawDamageValueField();
 
             serializedObject.ApplyModifiedProperties();
         }
-
         private void OnEnable() {
             Script = (Damage) target;
 
             description = serializedObject.FindProperty("description");
             damageValue = serializedObject.FindProperty("damageValue");
+            lookupType = serializedObject.FindProperty("lookupType");
         }
 
         #endregion UNITY MESSAGES
 
         #region INSPECTOR CONTROLS
+        private void DrawLookupTypeDropdown() {
+            EditorGUILayout.PropertyField(
+                lookupType,
+                new GUIContent(
+                    "Lookup Type",
+                    "Defines where to look for the Health component."));
+        }
+
 
         private void DrawDamageValueField() {
             EditorGUILayout.PropertyField(

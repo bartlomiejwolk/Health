@@ -42,6 +42,12 @@ namespace HealthEx.DamageComponent {
         [SerializeField]
         private string description = "Description";
 
+        /// <summary>
+        /// Specifys where to look for the <c>Health</c> component.
+        /// </summary>
+        [SerializeField]
+        private LookupType lookupType;
+
         #endregion INSPECTOR FIELDS
 
         #region PROPERTIES
@@ -61,6 +67,11 @@ namespace HealthEx.DamageComponent {
         public string Description {
             get { return description; }
             set { description = value; }
+        }
+
+        public LookupType Type {
+            get { return lookupType; }
+            set { lookupType = value; }
         }
 
         #endregion PROPERTIES
@@ -125,7 +136,6 @@ namespace HealthEx.DamageComponent {
         }
 
         public void ApplyDamage(GameObject other) {
-            //Debug.Log(other);
             var healthComponent = other.GetComponentInChildren<Health>();
 
             if (healthComponent == null) return;
